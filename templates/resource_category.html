@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<section style="padding: 60px 20px;">
+
+    <div style="max-width: 900px; margin: 0 auto;">
+
+        <h2 style="margin-bottom: 30px;">
+            {{ category }} Resources
+        </h2>
+
+        <!-- YEAR DROPDOWN -->
+        <form method="GET" style="margin-bottom: 40px;">
+            <select name="year"
+                    onchange="this.form.submit()"
+                    style="padding:8px 15px; border-radius:6px; border:1px solid #ccc;">
+                <option value="">Select Year</option>
+                <option value="1" {% if selected_year == "1" %}selected{% endif %}>Year 1</option>
+                <option value="2" {% if selected_year == "2" %}selected{% endif %}>Year 2</option>
+                <option value="3" {% if selected_year == "3" %}selected{% endif %}>Year 3</option>
+                <option value="4" {% if selected_year == "4" %}selected{% endif %}>Year 4</option>
+            </select>
+        </form>
+
+        <!-- FILE LIST -->
+
+{% if not selected_year %}
+    <p style="color:#6b7280; font-size:16px;">
+        Please select a year to view resources.
+    </p>
+
+{% elif resources %}
+    {% for file in resources %}
+        <div style="display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid #e5e7eb;">
+            <span>{{ file.title }}</span>
+            <a href="{{ file.file.url }}" target="_blank"
+               style="color:#2563eb; font-weight:600; text-decoration:none;">
+                Download
+            </a>
+        </div>
+    {% endfor %}
+
+{% else %}
+    <p style="color:#9ca3af;">
+        No files available for this year.
+    </p>
+{% endif %}
+
+
+    </div>
+
+</section>
+
+{% endblock %}

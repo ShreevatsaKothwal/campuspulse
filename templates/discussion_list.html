@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<section style="padding: 60px 20px;">
+
+    <div style="max-width: 900px; margin: 0 auto;">
+
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:30px;">
+            <h2>Campus Discussions</h2>
+            <a href="{% url 'create_post' %}" 
+               style="background:#2563eb; color:white; padding:8px 16px; border-radius:6px; text-decoration:none;">
+                + Create Post
+            </a>
+        </div>
+
+        {% if posts %}
+            {% for post in posts %}
+                <div style="border:1px solid #e5e7eb; padding:20px; margin-bottom:20px; border-radius:8px;">
+                    <h3>
+                        <a href="{% url 'post_detail' post.id %}" 
+                           style="text-decoration:none; color:#1f2937;">
+                            {{ post.title }}
+                        </a>
+                    </h3>
+                    <p style="color:#6b7280; font-size:14px;">
+    Posted by {{ post.created_by.username }} | {{ post.created_at|date:"M d, Y" }}
+
+</p>
+
+<p style="color:#2563eb; font-size:14px; font-weight:500; margin-top:5px;">
+    {{ post.comments.count }} Comment{{ post.comments.count|pluralize }}
+</p>
+
+                </div>
+            {% endfor %}
+                {% else %}
+            <p>No discussions yet.</p>
+        {% endif %}
+
+        <!-- Pagination -->
+        {% if posts.paginator.num_pages > 1 %}
+        <div style="margin-top:40px; text-align:center;">
+
+            {% if posts.has_previous %}
+                <a href="?page={{ posts.previous_page_number }}"
+                   style="margin-right:10px; text-decoration:none; color:#2563eb;">
+                    ← Previous
+                </a>
+            {% endif %}
+
+            <span style="color:#6b7280;">
+                Page {{ posts.number }} of {{ posts.paginator.num_pages }}
+            </span>
+
+            {% if posts.has_next %}
+                <a href="?page={{ posts.next_page_number }}"
+                   style="margin-left:10px; text-decoration:none; color:#2563eb;">
+                    Next →
+                </a>
+            {% endif %}
+
+        </div>
+        {% endif %}
+
+    </div>
+
+</section>
+{% endblock %}

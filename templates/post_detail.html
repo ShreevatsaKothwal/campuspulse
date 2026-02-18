@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<section style="padding: 60px 20px;">
+    <div style="max-width: 900px; margin: 0 auto;">
+
+        <h2>{{ post.title }}</h2>
+        <p style="color:#6b7280;">
+            Posted by {{ post.created_by.username }} | {{ post.created_at|date:"M d, Y" }}
+
+        </p>
+
+        <div style="margin:20px 0;">
+            <p>{{ post.content }}</p>
+        </div>
+
+        {% if request.user.is_superuser %}
+            <a href="{% url 'delete_post' post.id %}" 
+               style="color:red;">Delete Post</a>
+        {% endif %}
+
+        <hr style="margin:40px 0;">
+
+        <h3>Comments</h3>
+
+        {% for comment in comments %}
+            <div style="border-bottom:1px solid #e5e7eb; padding:10px 0;">
+                <strong>{{ comment.created_by.username }}</strong>
+<span style="color:#6b7280; font-size:12px;">
+    • {{ comment.created_at|date:"M d, Y" }}
+</span>
+<p>{{ comment.content }}</p>
+
+
+                {% if request.user.is_superuser %}
+                    <a href="{% url 'delete_comment' comment.id %}" 
+                       style="color:red; font-size:12px;">Delete</a>
+                {% endif %}
+            </div>
+        {% empty %}
+            <p>No comments yet.</p>
+        {% endfor %}
+
+        <hr style="margin:30px 0;">
+
+        <h4>Add Comment</h4>
+
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.content }}
+
+            <button type="submit"
+                    style="margin-top:10px; background:#2563eb; color:white; padding:6px 14px; border:none; border-radius:6px;">
+                Comment
+            </button>
+        </form>
+
+    </div>
+</section>
+
+{% endblock %}

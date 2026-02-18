@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="auth-wrapper">
+    <div class="auth-box">
+
+        <!-- LEFT -->
+        <div class="auth-left">
+            <h1>
+    {% if message %}
+        Login Required
+    {% else %}
+        Welcome Back
+    {% endif %}
+</h1>
+
+{% if message %}
+    <p style="color:#dc2626; margin-top:10px;">
+        {{ message }}
+    </p>
+{% endif %}
+
+            <p>
+                One platform.<br>
+                Complaints. Resources. Discussions.<br>
+                Built for students. Powered by clarity.
+            </p>
+        </div>
+
+        <div class="auth-divider"></div>
+
+        <!-- RIGHT -->
+        <div class="auth-right">
+            <h2>Login</h2>
+
+            <form method="POST">
+                {% csrf_token %}
+
+                {{ form.username.label_tag }}
+                {{ form.username }}
+
+                {{ form.password.label_tag }}
+                {{ form.password }}
+
+                <button type="submit" class="btn">Login</button>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

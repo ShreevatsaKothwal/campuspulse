@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<section style="
+    min-height: 70vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+">
+
+    <div class="form-box">
+
+        <h2>Upload Academic Resource</h2>
+
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <label>Title</label>
+            {{ form.title }}
+
+            <label>Category</label>
+            {{ form.category }}
+
+            <label>Year</label>
+            {{ form.year }}
+
+
+            <label>File</label>
+            {{ form.file }}
+
+            <button type="submit" class="btn">
+                Upload Resource
+            </button>
+        </form>
+
+    </div>
+
+</section>
+
+{% endblock %}

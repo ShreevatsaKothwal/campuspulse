@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CampusPulse</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #eff6ff;
+            color: #1f2937;
+
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        main {
+    flex: 1;
+    padding: 60px 20px;
+}
+
+
+        header {
+            background: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 60px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+            color: #2563eb;
+        }
+
+        .nav-center {
+    display: flex;
+    gap: 30px;
+}
+
+.nav-right {
+    display: flex;
+    gap: 20px;
+}
+
+.nav-center a,
+.nav-right a {
+    text-decoration: none;
+    color: #1f2937;
+    font-weight: 500;
+    transition: 0.2s;
+}
+
+.nav-center a:hover,
+.nav-right a:hover {
+    color: #2563eb;
+}
+
+
+        .form-box {
+            background: white;
+            width: 100%;
+            max-width: 500px;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        label {
+            font-weight: 500;
+        }
+.form-input {
+    width: 100%;
+    padding: 12px;
+    margin-top: 8px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    border: 1px solid #d1d5db;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+.form-input:focus {
+    border-color: #2563eb;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+}
+
+
+        .btn {
+            background: #2563eb;
+            color: white;
+            padding: 12px;
+            border-radius: 8px;
+            border: none;
+            width: 100%;
+            font-size: 15px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .btn:hover {
+            background: #1e40af;
+        }
+
+        footer {
+            background: white;
+            text-align: center;
+            padding: 20px;
+            font-size: 14px;
+            color: #6b7280;
+            box-shadow: 0 -2px 8px rgba(0,0,0,0.05);
+        }
+
+
+
+.feature-card {
+    background: white;
+    width: 280px;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+    transition: all 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 25px rgba(37,99,235,0.15);
+}
+
+.resource-card {
+    background: white;
+    padding: 35px;
+    border-radius: 20px;
+    box-shadow: 0 12px 30px rgba(37,99,235,0.08);
+    transition: all 0.3s ease;
+}
+
+.resource-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 18px 40px rgba(37,99,235,0.18);
+}
+
+
+        .filter-link {
+    margin-right: 15px;
+    text-decoration: none;
+    font-weight: 600;
+    color: #6b7280;
+    transition: 0.2s;
+}
+
+.filter-link:hover {
+    color: #2563eb;
+}
+
+.filter-link.active {
+    color: #2563eb;
+}
+
+        .status-badge {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    display: inline-block;
+}
+
+.status-pending {
+    background-color: #fee2e2;
+    color: #dc2626;
+}
+
+.status-resolved {
+    background-color: #dcfce7;
+    color: #16a34a;
+}
+
+        .active-nav {
+    color: #2563eb !important;
+    font-weight: 600;
+}
+.auth-container {
+    display: flex;
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    gap: 40px;
+    align-items: center;
+}
+
+.auth-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;   /* vertical center */
+    align-items: center;       /* horizontal center */
+    text-align: center;
+}
+
+.auth-left h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+    color: #1f2937;
+}
+
+.auth-left p {
+    font-size: 16px;
+    color: #6b7280;
+    line-height: 1.6;
+}
+
+.auth-right {
+    flex: 1;
+}
+.auth-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.auth-box {
+    background: white;
+    width: 100%;
+    max-width: 1100px;
+    display: flex;
+    padding: 60px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    align-items: center;
+}
+
+.auth-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding-right: 40px;
+}
+
+.auth-left h1 {
+    font-size: 34px;
+    margin-bottom: 20px;
+    color: #1f2937;
+}
+
+.auth-left p {
+    font-size: 16px;
+    color: #6b7280;
+    line-height: 1.7;
+}
+
+.auth-divider {
+    width: 1px;
+    background-color: #e5e7eb;
+    height: 320px;
+    margin: 0 40px;
+}
+
+.auth-right {
+    flex: 1;
+}
+
+
+
+
+    </style>
+</head>
+<body>
+<header>
+
+    <!-- LEFT -->
+    <div class="logo">CampusPulse</div>
+
+    <!-- CENTER -->
+<div class="nav-center">
+    <a href="{% url 'home' %}"
+       class="{% if request.path == '/' %}active-nav{% endif %}">
+       Home
+    </a>
+
+    <a href="{% url 'submit_complaint' %}"
+       class="{% if 'submit' in request.path %}active-nav{% endif %}">
+       Submit
+    </a>
+
+    <a href="{% url 'complaint_list' %}"
+       class="{% if 'complaints' in request.path %}active-nav{% endif %}">
+       Complaints
+    </a>
+
+    {% if user.is_superuser %}
+        <a href="{% url 'admin_dashboard' %}"
+           class="{% if 'admin-dashboard' in request.path %}active-nav{% endif %}">
+           Dashboard
+        </a>
+    <a href="{% url 'upload_resource' %}"
+       class="{% if 'upload-resource' in request.path %}active-nav{% endif %}">
+       Upload Resource
+    </a>
+    {% endif %}
+</div>
+
+
+    <!-- RIGHT -->
+    <div class="nav-right">
+        {% if user.is_authenticated %}
+            <a href="{% url 'logout' %}">Logout</a>
+        {% else %}
+            <a href="{% url 'login' %}">Login</a>
+            <a href="{% url 'register' %}">Register</a>
+        {% endif %}
+    </div>
+
+</header>
+
+
+<main>
+    {% block content %}
+
+    {% endblock %}
+</main>
+
+<footer>
+    © 2026 CampusPulse. All rights reserved.
+</footer>
+
+</body>
+</html>

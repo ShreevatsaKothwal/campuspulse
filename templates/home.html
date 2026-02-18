@@ -1,0 +1,175 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- HERO SECTION -->
+<section style="
+    min-height: 65vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 40px 20px;
+">
+
+    <div style="max-width: 900px;">
+
+        <h1 style="font-size: 42px; margin-bottom: 15px;">
+            Your Voice Matters at CampusPulse
+        </h1>
+
+        <p style="color: #6b7280; font-size: 18px; margin-bottom: 50px;">
+            Raise concerns about hostel and transport services easily and transparently.
+        </p>
+
+        <!-- FEATURE CARDS -->
+        <div style="display: flex; gap: 30px; justify-content: center; flex-wrap: wrap;">
+
+            <!-- Hostel Card -->
+            <div class="feature-card">
+                <h3 style="margin-bottom: 10px;">🏢 Hostel Complaints</h3>
+                <p style="color: #6b7280; font-size: 14px;">
+                    Report issues related to hostel facilities, maintenance, food, or cleanliness.
+                </p>
+
+                <a href="{% url 'submit_complaint' %}"
+                   class="btn"
+                   style="display: inline-block; width: auto; margin-top: 20px;">
+                    Submit Complaint
+                </a>
+            </div>
+
+            <!-- Bus Card -->
+            <div class="feature-card">
+                <h3 style="margin-bottom: 10px;">🚌 Bus Complaints</h3>
+                <p style="color: #6b7280; font-size: 14px;">
+                    Raise concerns regarding transport timing, driver behavior, or safety issues.
+                </p>
+
+                <a href="{% url 'submit_complaint' %}"
+                   class="btn"
+                   style="display: inline-block; width: auto; margin-top: 20px;">
+                    Submit Complaint
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- DIVIDER -->
+<div style="
+    max-width: 900px;
+    margin: 0 auto;
+    border-top: 1px solid rgba(37,99,235,0.2);
+"></div>
+
+<!-- RESOURCE SECTION -->
+<section style="padding: 80px 20px 120px 20px; background: #eff6ff;">
+
+    <div style="max-width: 1100px; margin: 0 auto;">
+
+        <!-- Section Header -->
+        <div style="text-align: center; margin-bottom: 60px;">
+            <h2 style="font-size: 32px; margin-bottom: 10px;">
+                Academic Resources
+            </h2>
+            <p style="color: #6b7280;">
+                Access study materials, presentations and previous year papers.
+            </p>
+        </div>
+
+        <div style="
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 35px;
+        ">
+
+            <!-- PPT CARD -->
+            <a href="{% url 'resource_category' 'PPT' %}"
+               style="text-decoration:none; color:inherit;">
+                <div class="resource-card">
+                    <h3 style="margin-bottom:25px;">📊 PPTs</h3>
+                    <p style="color:#6b7280;">
+                        Click to explore year-wise PPT resources.
+                    </p>
+                </div>
+            </a>
+
+            <!-- QUESTION PAPER CARD -->
+            <a href="{% url 'resource_category' 'Question Paper' %}"
+               style="text-decoration:none; color:inherit;">
+                <div class="resource-card">
+                    <h3 style="margin-bottom:25px;">📄 Question Papers</h3>
+                    <p style="color:#6b7280;">
+                        Click to explore year-wise question papers.
+                    </p>
+                </div>
+            </a>
+
+            <!-- NOTES CARD -->
+            <a href="{% url 'resource_category' 'Notes' %}"
+               style="text-decoration:none; color:inherit;">
+                <div class="resource-card">
+                    <h3 style="margin-bottom:25px;">📝 Notes</h3>
+                    <p style="color:#6b7280;">
+                        Click to explore year-wise notes.
+                    </p>
+                </div>
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- DIVIDER -->
+<div style="
+    max-width: 900px;
+    margin: 0 auto;
+    border-top: 1px solid rgba(37,99,235,0.2);
+"></div>
+
+
+<!-- DISCUSSION SECTION -->
+<section style="padding: 100px 20px; background: #eff6ff; border-top: 1px solid rgba(37,99,235,0.2);">
+
+    <div style="max-width: 1100px; margin: 0 auto; text-align: center;">
+
+        <h2 style="font-size: 32px; margin-bottom: 40px;">
+            Campus Discussions
+        </h2>
+        <p style="color: #6b7280; font-size: 17px; margin-bottom: 45px;">
+            Connect, share ideas, and discuss campus-related topics openly with your peers.
+        </p>
+
+        <a href="{% url 'discussion_list' %}"
+           style="
+                display: inline-block;
+                background: #2563eb;
+                color: white;
+                padding: 14px 28px;
+                border-radius: 8px;
+                font-weight: 600;
+                text-decoration: none;
+                font-size: 16px;
+                transition: 0.2s ease;
+           "
+           onmouseover="this.style.background='#1d4ed8'"
+           onmouseout="this.style.background='#2563eb'">
+
+            Enter Discussions →
+        </a>
+
+    </div>
+
+</section>
+
+
+
+
+{% endblock %}

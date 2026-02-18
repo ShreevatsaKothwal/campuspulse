@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div style="width: 100%; max-width: 1100px; margin: 0 auto;">
+
+    <h2 style="margin-bottom: 30px; text-align: left;">
+        Admin Dashboard – CampusPulse (DSU)
+    </h2>
+
+    <div style="
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 25px;
+    ">
+
+        <!-- Card -->
+        <div style="
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+        ">
+            <h4 style="color: #6b7280; margin-bottom: 10px;">Total Complaints</h4>
+            <h1 style="color: #2563eb; margin: 0;">{{ total_complaints }}</h1>
+        </div>
+
+        <!-- Card -->
+        <div style="
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+        ">
+            <h4 style="color: #6b7280; margin-bottom: 10px;">Pending Complaints</h4>
+            <h1 style="color: #dc2626; margin: 0;">{{ pending_complaints }}</h1>
+        </div>
+
+        <!-- Card -->
+        <div style="
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+        ">
+            <h4 style="color: #6b7280; margin-bottom: 10px;">Resolved Complaints</h4>
+            <h1 style="color: #16a34a; margin: 0;">{{ resolved_complaints }}</h1>
+        </div>
+
+        <!-- Card -->
+        <div style="
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+        ">
+            <h4 style="color: #6b7280; margin-bottom: 10px;">Hostel Complaints</h4>
+            <h1 style="color: #2563eb; margin: 0;">{{ hostel_complaints }}</h1>
+        </div>
+
+        <!-- Card -->
+        <div style="
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+        ">
+            <h4 style="color: #6b7280; margin-bottom: 10px;">Bus Complaints</h4>
+            <h1 style="color: #2563eb; margin: 0;">{{ bus_complaints }}</h1>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

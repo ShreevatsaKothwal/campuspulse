@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div style="width: 100%; max-width: 900px; margin: 0 auto;">
+
+    <h2 style="text-align: center; margin-bottom: 30px;">
+        All Complaints
+    </h2>
+
+    <!-- CATEGORY FILTER -->
+    <div style="margin: 10px 0 25px 0; text-align: center;">
+
+        <a href="{% url 'complaint_list' %}"
+           class="filter-link {% if not selected_type %}active{% endif %}">
+           All
+        </a>
+
+        <a href="?type=Hostel"
+           class="filter-link {% if selected_type == 'Hostel' %}active{% endif %}">
+           Hostel
+        </a>
+
+        <a href="?type=Bus"
+           class="filter-link {% if selected_type == 'Bus' %}active{% endif %}">
+           Bus
+        </a>
+
+    </div>
+    {% if user.is_superuser %}
+<div style="margin-bottom: 25px; text-align: center;">
+
+    <a href="{% url 'complaint_list' %}"
+       class="filter-link {% if not selected_status %}active{% endif %}">
+       All Status
+    </a>
+
+    <a href="?status=Pending"
+       class="filter-link {% if selected_status == 'Pending' %}active{% endif %}">
+       Pending
+    </a>
+
+    <a href="?status=Resolved"
+       class="filter-link {% if selected_status == 'Resolved' %}active{% endif %}">
+       Resolved
+    </a>
+
+</div>
+{% endif %}
+
+
+    {% if complaints %}
+
+        <div style="display: flex; flex-direction: column; gap: 25px; margin-top: 20px;">
+
+            {% for complaint in complaints %}
+            <div class="feature-card" style="width: 100%;">
+
+                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                    <strong>{{ complaint.student_name }}</strong>
+                    <span style="font-size: 14px; color: #6b7280;">
+                        {{ complaint.created_at|date:"M d, Y H:i" }}
+                    </span>
+                </div>
+
+                <p style="margin: 5px 0;">
+                    <strong>Type:</strong> {{ complaint.complaint_type }}
+                </p>
+
+                <!-- STATUS + ADMIN TOGGLE -->
+                <p style="margin: 5px 0; display:flex; justify-content:space-between; align-items:center;">
+
+                    <span>
+                        <strong>Status:</strong>
+                        <span class="status-badge
+                            {% if complaint.status == 'Pending' %}
+                                status-pending
+                            {% elif complaint.status == 'Resolved' %}
+                                status-resolved
+                            {% endif %}">
+                            {{ complaint.status }}
+                        </span>
+                    </span>
+
+                    {% if user.is_superuser %}
+                        <a href="{% url 'update_status' complaint.id %}"
+                           style="font-size:13px; text-decoration:none; color:#2563eb; font-weight:500;">
+                           Toggle Status
+                        </a>
+                    {% endif %}
+
+                </p>
+
+                <p style="margin-top: 10px; color: #374151;">
+                    {{ complaint.description }}
+                </p>
+
+            </div>
+            {% endfor %}
+
+            <!-- PAGINATION -->
+            <div style="margin: 40px 0 10px 0; text-align: center;">
+
+                {% if page_obj.has_previous %}
+                    <a href="?page={{ page_obj.previous_page_number }}{% if selected_type %}&type={{ selected_type }}{% endif %}"
+                       class="filter-link">
+                       Previous
+                    </a>
+                {% endif %}
+
+                <span style="margin: 0 15px; font-weight: 500;">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                </span>
+
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}{% if selected_type %}&type={{ selected_type }}{% endif %}"
+                       class="filter-link">
+                       Next
+                    </a>
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    {% else %}
+
+        <p style="text-align: center; color: #6b7280;">
+            No complaints submitted yet.
+        </p>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

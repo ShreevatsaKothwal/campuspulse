@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="form-box">
+    <h2>Submit Complaint</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <label>Student Name</label>
+        {{ form.student_name }}
+
+        <label>Email</label>
+        {{ form.email }}
+
+        <label>Complaint Type</label>
+        {{ form.complaint_type }}
+
+        <label>Description</label>
+        {{ form.description }}
+
+        <button type="submit" class="btn">Submit Complaint</button>
+    </form>
+</div>
+
+{% endblock %}
