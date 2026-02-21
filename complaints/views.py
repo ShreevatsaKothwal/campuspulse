@@ -80,7 +80,6 @@ def submit_complaint(request):
             complaint = form.save(commit=False)
             complaint.user = request.user
 
-            # Generate Summary
             summary = generate_summary(
                 complaint.complaint_type,
                 complaint.description
@@ -89,29 +88,8 @@ def submit_complaint(request):
             complaint.summary = summary
             complaint.save()
 
-            # 🔒 Safe Email (Will NOT crash site)
-            try:
-                send_mail(
-                    subject=f"New Complaint - {complaint.complaint_type}",
-                    message=f"""
-New Complaint Received:
-
-Student Name: {complaint.student_name}
-Student Email: {complaint.email}
-Category: {complaint.complaint_type}
-
-Summary:
-{summary}
-
-Full Description:
-{complaint.description}
-""",
-                    from_email=settings.EMAIL_HOST_USER,
-                    recipient_list=[settings.DEAN_EMAIL],
-                    fail_silently=True,   # IMPORTANT
-                )
-            except Exception as e:
-                print("Email failed:", e)
+            # 🔥 EMAIL DISABLED COMPLETELY
+            # (Production safe)
 
             return render(request, 'success.html')
 
@@ -119,6 +97,7 @@ Full Description:
         form = ComplaintForm()
 
     return render(request, 'submit_complaint.html', {'form': form})
+
 
 @login_required
 def complaint_list(request):
