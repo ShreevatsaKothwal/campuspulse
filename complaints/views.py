@@ -72,7 +72,6 @@ def generate_summary(complaint_type, description):
 
     return summary
 
-
 @login_required
 def submit_complaint(request):
     if request.method == 'POST':
@@ -87,13 +86,14 @@ def submit_complaint(request):
                 complaint.description
             )
 
-            complaint.summary = summary  # Save summary in model
+            complaint.summary = summary
             complaint.save()
 
-            # Send Email Automatically
-            send_mail(
-                subject=f"New Complaint - {complaint.complaint_type}",
-                message=f"""
+            # 🔒 Send Email Safely (Will NOT crash site)
+            try:
+                send_mail(
+                    subject=f"New Complaint - {complaint.complaint_type}",
+                    message=f"""
 New Complaint Received:
 
 Student Name: {complaint.student_name}
@@ -106,10 +106,12 @@ Summary:
 Full Description:
 {complaint.description}
 """,
-                from_email=settings.EMAIL_HOST_USER,
-                recipient_list=[settings.DEAN_EMAIL],
-                fail_silently=False,
-            )
+                    from_email=settings.EMAIL_HOST_USER,
+                    recipient_list=[settings.DEAN_EMAIL],
+                    fail_silently=True,  # Important
+                )
+            except Exception as e:
+                print("Email failed:", e)
 
             return render(request, 'success.html')
 
@@ -208,10 +210,11 @@ def update_status(request, complaint_id):
 
         complaint.save()
 
-        # 🔥 Send Email to Student
-        send_mail(
-            subject="Update on Your Complaint – CampusPulse",
-            message=f"""
+        # 🔒 Send Email Safely (Will NOT crash site)
+        try:
+            send_mail(
+                subject="Update on Your Complaint – CampusPulse",
+                message=f"""
 Dear {complaint.student_name},
 
 Your complaint submitted under the {complaint.complaint_type} category has been updated.
@@ -227,14 +230,14 @@ Regards,
 CampusPulse Team
 Dayananda Sagar University
 """,
-            from_email=settings.EMAIL_HOST_USER,
-            recipient_list=[complaint.email],
-            fail_silently=False,
-        )
+                from_email=settings.EMAIL_HOST_USER,
+                recipient_list=[complaint.email],
+                fail_silently=True,   # Important
+            )
+        except Exception as e:
+            print("Email failed:", e)
 
     return redirect('complaint_list')
-
-
 #
 # from django.core.mail import send_mail
 # from django.conf import settings
