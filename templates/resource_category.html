@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
 
@@ -25,28 +26,29 @@
 
         <!-- FILE LIST -->
 
-{% if not selected_year %}
-    <p style="color:#6b7280; font-size:16px;">
-        Please select a year to view resources.
-    </p>
+        {% if not selected_year %}
+            <p style="color:#6b7280; font-size:16px;">
+                Please select a year to view resources.
+            </p>
 
-{% elif resources %}
-    {% for file in resources %}
-        <div style="display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid #e5e7eb;">
-            <span>{{ file.title }}</span>
-            <a href="{{ file.file.url }}" target="_blank"
-               style="color:#2563eb; font-weight:600; text-decoration:none;">
-                Download
-            </a>
-        </div>
-    {% endfor %}
+        {% elif resources %}
+            {% for file in resources %}
+                <div style="display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid #e5e7eb;">
+                    <span>{{ file.title }}</span>
 
-{% else %}
-    <p style="color:#9ca3af;">
-        No files available for this year.
-    </p>
-{% endif %}
+                    <!-- STATIC DOWNLOAD LINK -->
+                    <a href="{% static 'resources/cyber_module_3.pdf' %}" download
+                       style="color:#2563eb; font-weight:600; text-decoration:none;">
+                        Download
+                    </a>
+                </div>
+            {% endfor %}
 
+        {% else %}
+            <p style="color:#9ca3af;">
+                No files available for this year.
+            </p>
+        {% endif %}
 
     </div>
 

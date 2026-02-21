@@ -6,4 +6,4 @@ staticfiles/
 .env
 .DS_Store
 .idea/
-resources/
+static/

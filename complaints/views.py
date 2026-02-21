@@ -284,7 +284,7 @@ def resource_category(request, category):
         ).order_by('-uploaded_at')
 
     context = {
-        "resources": resources,
+        "static": resources,
         "category": category,
         "selected_year": selected_year,
     }
