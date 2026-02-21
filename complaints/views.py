@@ -80,7 +80,7 @@ def submit_complaint(request):
             complaint = form.save(commit=False)
             complaint.user = request.user
 
-            # Generate AI Summary
+            # Generate Summary
             summary = generate_summary(
                 complaint.complaint_type,
                 complaint.description
@@ -89,7 +89,7 @@ def submit_complaint(request):
             complaint.summary = summary
             complaint.save()
 
-            # 🔒 Send Email Safely (Will NOT crash site)
+            # 🔒 Safe Email (Will NOT crash site)
             try:
                 send_mail(
                     subject=f"New Complaint - {complaint.complaint_type}",
@@ -108,7 +108,7 @@ Full Description:
 """,
                     from_email=settings.EMAIL_HOST_USER,
                     recipient_list=[settings.DEAN_EMAIL],
-                    fail_silently=True,  # Important
+                    fail_silently=True,   # IMPORTANT
                 )
             except Exception as e:
                 print("Email failed:", e)
@@ -119,7 +119,6 @@ Full Description:
         form = ComplaintForm()
 
     return render(request, 'submit_complaint.html', {'form': form})
-
 
 @login_required
 def complaint_list(request):
