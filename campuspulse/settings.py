@@ -156,4 +156,8 @@ EMAIL_HOST_PASSWORD = 'vlatxrdylokhgguv'
 DEAN_EMAIL = 'shreevatsa.kothwal@gmail.com'
 
 
+
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
