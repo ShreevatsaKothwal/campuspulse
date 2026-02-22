@@ -50,7 +50,7 @@ class Resource(models.Model):
     title = models.CharField(max_length=200)
     category = models.CharField(max_length=20, choices=CATEGORY_CHOICES)
     year = models.IntegerField(choices=YEAR_CHOICES)
-    file = models.FileField(upload_to='resources/')
+    file = models.FileField(upload_to='resources/', blank=True, null=True)
     uploaded_at = models.DateTimeField(auto_now_add=True)
     uploaded_by = models.ForeignKey(User, on_delete=models.CASCADE)
 
