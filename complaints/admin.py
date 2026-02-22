@@ -35,14 +35,17 @@ class ComplaintAdmin(admin.ModelAdmin):
 # Resource Admin (FIXED)
 # ==========================
 
+# @admin.register(Resource)
+# class ResourceAdmin(admin.ModelAdmin):
+#     list_display = ('title', 'category', 'year', 'uploaded_at')  # removed file
+#     list_filter = ('category', 'year', 'uploaded_at')
+#     search_fields = ('title',)
+#     ordering = ('-uploaded_at',)
+
 @admin.register(Resource)
 class ResourceAdmin(admin.ModelAdmin):
-    list_display = ('title', 'category', 'year', 'uploaded_at')  # removed file
-    list_filter = ('category', 'year', 'uploaded_at')
-    search_fields = ('title',)
-    ordering = ('-uploaded_at',)
-
-
+    list_display = ('title', 'category', 'year', 'uploaded_at')
+    exclude = ('file',)   # 🔥 this is important
 # ==========================
 # Discussion Models
 # ==========================
