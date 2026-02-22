@@ -1,18 +1,13 @@
-# from django.contrib import admin
-# from .models import Complaint
-#
-# admin.site.register(Complaint)
 from django.contrib import admin
-from .models import Complaint
-from django.contrib import admin
-from .models import Complaint, Resource
-from .models import Post, Comment
+from .models import Complaint, Resource, Post, Comment
 
 
+# ==========================
+# Complaint Admin
+# ==========================
 
 @admin.register(Complaint)
 class ComplaintAdmin(admin.ModelAdmin):
-
     list_display = (
         'student_name',
         'email',
@@ -36,31 +31,21 @@ class ComplaintAdmin(admin.ModelAdmin):
     ordering = ('-created_at',)
 
 
+# ==========================
+# Resource Admin (FIXED)
+# ==========================
+
 @admin.register(Resource)
 class ResourceAdmin(admin.ModelAdmin):
-    list_display = ('title', 'category', 'year', 'uploaded_at', 'uploaded_by')
+    list_display = ('title', 'category', 'year', 'uploaded_at')  # removed file
     list_filter = ('category', 'year', 'uploaded_at')
-    fields = ('title', 'category', 'year', 'file', 'uploaded_by')
-
-    search_fields = (
-        'title',
-    )
-
+    search_fields = ('title',)
     ordering = ('-uploaded_at',)
 
-    admin.site.register(Post)
-    admin.site.register(Comment)
 
+# ==========================
+# Discussion Models
+# ==========================
 
-
-
-
-
-
-
-
-
-
-
-
-
+admin.site.register(Post)
+admin.site.register(Comment)
