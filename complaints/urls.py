@@ -17,7 +17,7 @@ urlpatterns = [
     # path('test-email/', test_email, name='test_email'),
     path('admin-dashboard/', admin_dashboard, name='admin_dashboard'),
     path('upload-resource/', upload_resource, name='upload_resource'),
-    path('static/<str:category>/', views.resource_category, name='resource_category'),
+    path('resources/<str:category>/', views.resource_category, name='resource_category'),
 
     path('discussions/', views.discussion_list, name='discussion_list'),
     path('discussions/create/', views.create_post, name='create_post'),

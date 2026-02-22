@@ -17,6 +17,7 @@ import re
 from .models import Complaint
 from .forms import ComplaintForm, RegisterForm, LoginForm
 
+
 # ----------------------------------------------------------------------------------------------------
 def home(request):
 
@@ -71,7 +72,6 @@ def generate_summary(complaint_type, description):
         summary += " Immediate administrative attention may be required."
 
     return summary
-
 @login_required
 def submit_complaint(request):
     if request.method == 'POST':
@@ -88,8 +88,25 @@ def submit_complaint(request):
             complaint.summary = summary
             complaint.save()
 
-            # 🔥 EMAIL DISABLED COMPLETELY
-            # (Production safe)
+            # ✅ EMAIL ENABLED
+            try:
+                send_mail(
+                    subject="New Complaint Submitted – CampusPulse",
+                    message=f"""
+A new complaint has been submitted.
+
+Student: {complaint.student_name}
+Category: {complaint.complaint_type}
+
+Summary:
+{complaint.summary}
+""",
+                    from_email=settings.EMAIL_HOST_USER,
+                    recipient_list=[settings.DEAN_EMAIL],
+                    fail_silently=False,  # Keep False for testing
+                )
+            except Exception as e:
+                print("Email failed:", e)
 
             return render(request, 'success.html')
 
@@ -97,7 +114,6 @@ def submit_complaint(request):
         form = ComplaintForm()
 
     return render(request, 'submit_complaint.html', {'form': form})
-
 
 @login_required
 def complaint_list(request):
@@ -275,25 +291,21 @@ def upload_resource(request):
 def resource_category(request, category):
 
     selected_year = request.GET.get('year')
-    resources = None  # default
+    resources = []
 
     if selected_year:
         resources = Resource.objects.filter(
             category=category,
-            year=selected_year
+            year=int(selected_year)
         ).order_by('-uploaded_at')
 
     context = {
-        "static": resources,
+        "resources": resources,   # ✅ FIXED HERE
         "category": category,
         "selected_year": selected_year,
     }
 
     return render(request, "resource_category.html", context)
-
-
-
-
 
 
 @login_required

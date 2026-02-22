@@ -37,10 +37,10 @@
                     <span>{{ file.title }}</span>
 
                     <!-- STATIC DOWNLOAD LINK -->
-                    <a href="{% static 'resources/cyber_module_3.pdf' %}" download
-                       style="color:#2563eb; font-weight:600; text-decoration:none;">
-                        Download
-                    </a>
+                    <a href="{{ file.file.url }}" download
+   style="color:#2563eb; font-weight:600; text-decoration:none;">
+    Download
+</a>
                 </div>
             {% endfor %}
 
