@@ -72,6 +72,7 @@ def generate_summary(complaint_type, description):
         summary += " Immediate administrative attention may be required."
 
     return summary
+
 @login_required
 def submit_complaint(request):
     if request.method == 'POST':
@@ -80,6 +81,7 @@ def submit_complaint(request):
             complaint = form.save(commit=False)
             complaint.user = request.user
 
+            # Generate AI-style summary
             summary = generate_summary(
                 complaint.complaint_type,
                 complaint.description
@@ -88,25 +90,31 @@ def submit_complaint(request):
             complaint.summary = summary
             complaint.save()
 
-            # ✅ EMAIL ENABLED
+            # 📧 Send Email to Dean
             try:
                 send_mail(
                     subject="New Complaint Submitted – CampusPulse",
                     message=f"""
-A new complaint has been submitted.
+A new complaint has been submitted through CampusPulse.
 
-Student: {complaint.student_name}
+Student Name: {complaint.student_name}
+Student Email: {complaint.email}
 Category: {complaint.complaint_type}
 
 Summary:
 {complaint.summary}
+
+Please review this complaint in the admin dashboard.
+
+Regards,
+CampusPulse System
 """,
-                    from_email=settings.EMAIL_HOST_USER,
+                    from_email=settings.DEFAULT_FROM_EMAIL,
                     recipient_list=[settings.DEAN_EMAIL],
-                    fail_silently=False,  # Keep False for testing
+                    fail_silently=True,   # Prevents crash if email fails
                 )
             except Exception as e:
-                print("Email failed:", e)
+                print("Email sending failed:", e)
 
             return render(request, 'success.html')
 
@@ -114,6 +122,7 @@ Summary:
         form = ComplaintForm()
 
     return render(request, 'submit_complaint.html', {'form': form})
+
 
 @login_required
 def complaint_list(request):
