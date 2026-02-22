@@ -1,12 +1,12 @@
 from django import forms
-from .models import Complaint
-from django import forms
-from .models import Complaint
+from .models import Complaint, Resource, Post, Comment
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm
-from .models import Post, Comment
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
 
+# ==========================
+# Complaint Form
+# ==========================
 
 class ComplaintForm(forms.ModelForm):
     class Meta:
@@ -23,6 +23,10 @@ class ComplaintForm(forms.ModelForm):
             }),
         }
 
+
+# ==========================
+# Register Form
+# ==========================
 
 class RegisterForm(UserCreationForm):
     email = forms.EmailField(
@@ -47,7 +51,9 @@ class RegisterForm(UserCreationForm):
         }
 
 
-from django.contrib.auth.forms import AuthenticationForm
+# ==========================
+# Login Form
+# ==========================
 
 class LoginForm(AuthenticationForm):
     username = forms.CharField(
@@ -59,19 +65,28 @@ class LoginForm(AuthenticationForm):
     )
 
 
-from .models import Resource
+# ==========================
+# Resource Form (STATIC VERSION)
+# ==========================
 
 class ResourceForm(forms.ModelForm):
     class Meta:
         model = Resource
-        fields = ['title', 'category', 'year', 'file']
+        fields = ['title', 'category', 'year', 'file_name']  # ✅ file removed
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-input'}),
             'category': forms.Select(attrs={'class': 'form-input'}),
-            'year': forms.Select(attrs={'class': 'form-input'}),   # 👈 ADD THIS
-            'file': forms.FileInput(attrs={'class': 'form-input'}),
+            'year': forms.Select(attrs={'class': 'form-input'}),
+            'file_name': forms.TextInput(attrs={
+                'class': 'form-input',
+                'placeholder': 'Enter file name (example: cyber_module_5.pdf)'
+            }),
         }
 
+
+# ==========================
+# Discussion Forms
+# ==========================
 
 class PostForm(forms.ModelForm):
     class Meta:
@@ -84,6 +99,8 @@ class PostForm(forms.ModelForm):
                 'rows': 4
             }),
         }
+
+
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment

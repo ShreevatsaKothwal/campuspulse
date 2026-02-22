@@ -34,13 +34,16 @@
         {% elif resources %}
             {% for file in resources %}
                 <div style="display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid #e5e7eb;">
+
                     <span>{{ file.title }}</span>
 
                     <!-- STATIC DOWNLOAD LINK -->
-                    <a href="{{ file.file.url }}" download
-   style="color:#2563eb; font-weight:600; text-decoration:none;">
-    Download
-</a>
+                    <a href="{% static file.file_name %}"
+                       download
+                       style="color:#2563eb; font-weight:600; text-decoration:none;">
+                        Download
+                    </a>
+
                 </div>
             {% endfor %}
 

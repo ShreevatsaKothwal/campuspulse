@@ -32,23 +32,42 @@ class ComplaintAdmin(admin.ModelAdmin):
 
 
 # ==========================
-# Resource Admin (FIXED)
+# Resource Admin (Static Version)
 # ==========================
-
-# @admin.register(Resource)
-# class ResourceAdmin(admin.ModelAdmin):
-#     list_display = ('title', 'category', 'year', 'uploaded_at')  # removed file
-#     list_filter = ('category', 'year', 'uploaded_at')
-#     search_fields = ('title',)
-#     ordering = ('-uploaded_at',)
 
 @admin.register(Resource)
 class ResourceAdmin(admin.ModelAdmin):
-    list_display = ('title', 'category', 'year', 'uploaded_at')
-    exclude = ('file',)   # 🔥 this is important
+    list_display = (
+        'title',
+        'category',
+        'year',
+        'file_name',
+        'uploaded_at'
+    )
+
+    list_filter = (
+        'category',
+        'year',
+    )
+
+    search_fields = (
+        'title',
+    )
+
+    ordering = ('-uploaded_at',)
+
+
 # ==========================
 # Discussion Models
 # ==========================
 
-admin.site.register(Post)
-admin.site.register(Comment)
+@admin.register(Post)
+class PostAdmin(admin.ModelAdmin):
+    list_display = ('title', 'created_by', 'created_at')
+    ordering = ('-created_at',)
+
+
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ('post', 'created_by', 'created_at')
+    ordering = ('-created_at',)
