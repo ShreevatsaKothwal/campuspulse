@@ -149,20 +149,28 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_URL = 'login'
 
 
-# Email Configuration
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
+# # Email Configuration
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+#
+# # EMAIL_HOST_USER = 'shreevatsa.kothwal@gmail.com'
+# # EMAIL_HOST_PASSWORD = ''
+# # DEAN_EMAIL = 'shreevatsa.kothwal@gmail.com'
+# EMAIL_HOST_USER = os.environ.get('EMAIL_USER')
+# EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASS')
+# DEAN_EMAIL = os.environ.get('DEAN_EMAIL')
+# DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+# Email Configuration (SendGrid API)
 
-# EMAIL_HOST_USER = 'shreevatsa.kothwal@gmail.com'
-# EMAIL_HOST_PASSWORD = ''
-# DEAN_EMAIL = 'shreevatsa.kothwal@gmail.com'
-EMAIL_HOST_USER = os.environ.get('EMAIL_USER')
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASS')
-DEAN_EMAIL = os.environ.get('DEAN_EMAIL')
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
 
+SENDGRID_API_KEY = os.environ.get("SENDGRID_API_KEY")
+
+DEFAULT_FROM_EMAIL = "shreevatsa.kothwal@gmail.com"
+
+DEAN_EMAIL = os.environ.get("DEAN_EMAIL")
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
