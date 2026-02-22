@@ -3,7 +3,7 @@ from . import views
 # from .views import test_email
 from .views import admin_dashboard
 from .views import upload_resource
-
+from .views import test_email
 
 
 urlpatterns = [
@@ -24,7 +24,7 @@ urlpatterns = [
     path('discussions/<int:post_id>/', views.post_detail, name='post_detail'),
     path('discussions/delete/<int:post_id>/', views.delete_post, name='delete_post'),
     path('comments/delete/<int:comment_id>/', views.delete_comment, name='delete_comment'),
-
+    path("test-email/", test_email),
 
 ]
 

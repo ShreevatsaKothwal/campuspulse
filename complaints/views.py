@@ -375,3 +375,18 @@ def delete_comment(request, comment_id):
         comment.delete()
 
     return redirect('post_detail', post_id=post_id)
+
+
+
+from django.http import HttpResponse
+from django.core.mail import send_mail
+
+def test_email(request):
+    send_mail(
+        "CampusPulse Production Test",
+        "If you are reading this, SendGrid is working 🎉",
+        "shreevatsa.kothwal@gmail.com",
+        ["shreevatsa.kothwal@gmail.com"],
+        fail_silently=False,
+    )
+    return HttpResponse("Email Sent Successfully")
